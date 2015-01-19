@@ -1,7 +1,8 @@
-from __future__ import division 
+from __future__ import division
 import networkx as nx
 import json
 import matplotlib.pyplot as plt
+
 
 def main(data):
     """docstring for main"""
@@ -15,7 +16,7 @@ def main(data):
 
 
 def mpl(graph):
-    fig = plt.figure(1,figsize=(16,16))
+    fig = plt.figure(1, figsize=(16, 16))
 
     ax = plt.axes()
     ax.get_yaxis().set_visible(False)
@@ -27,10 +28,10 @@ def mpl(graph):
     number_of_nodes = len(graph.nodes())
     move_amount = 1/number_of_nodes
 
-
     for count, x in enumerate(nx.dfs_preorder_nodes(graph, '')):
         y = 1 - count * move_amount
-        plt.text(.5,y,s=x[:5], bbox=dict(facecolor='red', alpha=0.2),horizontalalignment='center')
+        plt.text(.5, y, s=x[:5], bbox=dict(facecolor='red', alpha=0.2),
+                 horizontalalignment='center')
 
     plt.show()
     fig.savefig("test.png")
