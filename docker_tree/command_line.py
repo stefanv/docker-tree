@@ -4,6 +4,7 @@
 # http://docker-py.readthedocs.org/en/latest/api/
 # for commands supported by the docker-py API
 from docker import Client
+from docker.utils import kwargs_from_env
 from requests.exceptions import ConnectionError
 
 import argparse
