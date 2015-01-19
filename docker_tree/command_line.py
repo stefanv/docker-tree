@@ -16,7 +16,9 @@ import sys
 
 def docker_client(server_urls, client_args={}):
     try:
-        cli = Client(**kwargs_from_env(assert_hostname=False))
+        args = kwargs_from_env(assert_hostname=False)
+        args.update(client_args)
+        cli = Client(**args)
         cli.version()
         return cli
     except ConnectionError:
@@ -55,7 +57,7 @@ def main():
 
     cli = docker_client(server_urls=['unix://var/run/docker.sock',
                                      'tcp://127.0.0.1:2375'],
-                        client_args={'version': '1.0'})
+                        client_args={'version': '1.7'})
 
     if cli is None:
         print("Error: could not establish connection to the Docker server")
