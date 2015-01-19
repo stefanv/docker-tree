@@ -13,6 +13,13 @@ import sys
 
 
 def docker_client(server_urls, client_args={}):
+    try:
+        cli = Client(**kwargs_from_env(assert_hostname=False))
+        cli.version()
+        return cli
+    except ConnectionError:
+        pass
+
     for url in server_urls:
         cli = Client(base_url=url, **client_args)
 
@@ -53,6 +60,6 @@ def main():
         sys.exit(-1)
 
     if cmd == 'tree':
-        print(cli.images())
+        print(cli.images(all=True))
     elif cmd == 'prune':
         print('Pruning')
