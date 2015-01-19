@@ -6,11 +6,19 @@ This is a Python port (with some additional functionality) of
 ## Installation
 
 ```
-pip install -r requirements.txt
+pip install docker-tree
 ```
 
 ## Usage
 
 ```
-python docker-tree.py --help
+python docker-tree --help
 ```
+
+## Developers
+
+```
+pip install -r requirements.txt
+python setup.py develop
+```
+
