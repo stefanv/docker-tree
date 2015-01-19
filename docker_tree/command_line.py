@@ -3,10 +3,11 @@
 # See
 # http://docker-py.readthedocs.org/en/latest/api/
 # for commands supported by the docker-py API
+from __future__ import print_function
 from docker import Client
 from docker.utils import kwargs_from_env
 from requests.exceptions import ConnectionError
-
+from .tree import draw_ascii_tree, graph_from_images
 import argparse
 from .argparse_commands import parse_commands
 
@@ -61,6 +62,7 @@ def main():
         sys.exit(-1)
 
     if cmd == 'tree':
-        print(cli.images(all=True))
+        dg = graph_from_images(cli.images(all=True))
+        print(draw_ascii_tree(dg))
     elif cmd == 'prune':
         print('Pruning')
