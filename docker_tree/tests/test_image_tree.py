@@ -1,4 +1,4 @@
-from docker_tree.tree import graph_from_images, root
+from docker_tree.tree import graph_from_images, root, draw_ascii_tree
 
 import json
 import os
@@ -12,3 +12,13 @@ with open(os.path.join(data_path, 'response.json')) as f:
 def test_image_data_parse():
     dg = graph_from_images(image_data)
     assert root(dg).startswith('5111')
+
+
+def test_draw_tree():
+    dg = graph_from_images(image_data)
+    assert draw_ascii_tree(dg).startswith('5111')
+
+
+def test_draw_tree_2():
+    dg = graph_from_images(image_data)
+    assert '\n  +--' in draw_ascii_tree(dg)
