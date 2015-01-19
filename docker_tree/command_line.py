@@ -14,25 +14,16 @@ from .argparse_commands import parse_commands
 import sys
 
 
-def docker_client(server_urls, client_args={}):
+def docker_client(client_args={}):
     try:
-        cli = Client(**kwargs_from_env(assert_hostname=False))
+        args = kwargs_from_env(assert_hostname=False)
+        args.update(client_args)
+        cli = Client(**args)
         cli.version()
-        return cli
     except ConnectionError:
-        pass
+        return None
 
-    for url in server_urls:
-        cli = Client(base_url=url, **client_args)
-
-        try:
-            cli.version()
-        except ConnectionError:
-            pass
-        else:
-            return cli
-
-    return None
+    return cli
 
 
 def main():
@@ -53,9 +44,7 @@ def main():
     cmd_args = parse_commands(parser, args)
     cmd = args.subparser_name
 
-    cli = docker_client(server_urls=['unix://var/run/docker.sock',
-                                     'tcp://127.0.0.1:2375'],
-                        client_args={'version': '1.0'})
+    cli = docker_client(client_args={'version': '1.7'})
 
     if cli is None:
         print("Error: could not establish connection to the Docker server")
