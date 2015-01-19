@@ -1,4 +1,6 @@
+from __future__ import print_function
 import networkx as nx
+from asciitree import draw_tree
 
 
 def graph_from_images(docker_images):
@@ -38,4 +40,15 @@ def root(dg):
     root : str
         Name of root image.
     """
-    return dg.successors('')[0]
+    return [n for n in nx.topological_sort(dg) if n != ''][0]
+
+
+def draw_ascii_tree(directed_graph):
+    def child_iter(node):
+        "Return an iterator over the children of `node`"
+        return directed_graph.successors(node)
+    def text_str(node):
+        "Return a text representation of `node`."
+        return node[:12]
+
+    return draw_tree(root(directed_graph), child_iter, text_str)
