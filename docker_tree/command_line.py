@@ -44,7 +44,7 @@ def main():
     cmd_args = parse_commands(parser, args)
     cmd = args.subparser_name
 
-    cli = docker_client(client_args={'version': '1.7'})
+    cli = docker_client(client_args={'version': '1.15'})
 
     if cli is None:
         print("Error: could not establish connection to the Docker server")
